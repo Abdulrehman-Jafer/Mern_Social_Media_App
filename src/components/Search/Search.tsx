@@ -43,7 +43,7 @@ const Search = ({ displayValue = false, goBack }: { displayValue: boolean, goBac
         event.preventDefault()
         setIsSearching(true)
         await axios.post(searchURl, { searchText }).then(res => {
-            toast.success(`Searhed for ${searchText}`)
+            toast.success(`Searched for ${searchText}`)
             setIsSearched(true)
             setIsSearching(false)
             return setSearchResult(res.data.result)
