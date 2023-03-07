@@ -79,6 +79,9 @@ main.customScroll::-webkit-scrollbar-thumb:hover {
     .mediaWidth{
         width: 100%;
     }
+    .mediavw{
+      width: 100vw;
+    }
 }
 
 .loader-container {

@@ -9,7 +9,7 @@ const ProfileBottom = () => {
     const [active, setActive] = useState([true, false])
 
     return (
-        <main className='border-t-2 p-2 w-full'>
+        <main className='border-t-2 p-2 w-full mediavw'>
             <section className='flex justify-center gap-4'>
                 <div onClick={() => setActive([true, false])}>
                     <SideBarItems title='POSTS' icon={BsGrid3X3Gap} active={active[0]} />
