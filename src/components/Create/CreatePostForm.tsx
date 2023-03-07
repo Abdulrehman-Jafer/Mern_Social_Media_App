@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import { UserContext } from '../../context/context'
 import { createPostUrl } from '../../globles/globles'
 import Loader from '../../globles/Loader';
+import {toast} from "react-toastify"
 
 const CreatePostForm = ({ img, file, disable }: { img: string, file: File, disable: boolean }) => {
     const { userData, renewUserData } = useContext(UserContext)
@@ -26,11 +27,12 @@ const CreatePostForm = ({ img, file, disable }: { img: string, file: File, disab
             if (res.status == 201) {
                 setProcessing(false)
                 renewUserData()
-                alert("Successful")
+                toast.success("Successful")
                 window.location.reload()
             }
         }).catch(err => {
             setProcessing(false)
+            toast.error("Something went wrong")
             console.log(err)
         }
         )
