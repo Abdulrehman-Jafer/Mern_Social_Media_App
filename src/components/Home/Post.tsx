@@ -82,7 +82,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
     }
     return (
         <>
-            <main className='p-2 max-w-[600px] flex flex-col gap-[1rem] bg-transparent backdrop-blur-[1px] rounded-lg border border-pickedColor'>
+            <main className='p-2 max-w-[600px] w-full flex flex-col gap-[1rem] bg-transparent backdrop-blur-[1px] rounded-lg border border-pickedColor'>
                 <section>
                     <div className='flex justify-between items-center text-white'>
                         <div className='flex items-center gap-2'>
