@@ -42,7 +42,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
         const Url = deletePostUrl + "/" + _id + "/" + postId
         await axios.delete(Url).then(res => {
             if (res.status == 200) {
-                toast.success("successful")
+                toast.success("Successful")
                 return window.location.reload()
             }
         }).catch(err => {
@@ -95,7 +95,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                             {optionsDisplay && <Options deletePost={() => {
                                 setOptionsDisplay(false)
                                 setWarningDisplay(true)
-                                }} handleCancel={handleCancel} />}
+                            }} handleCancel={handleCancel} />}
                         </span>
                     </div>
                 </section>
