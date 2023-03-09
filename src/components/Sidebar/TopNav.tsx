@@ -5,9 +5,9 @@ import userImage from "../../assets/userImage.jpg"
 import SideBarItems from './SideBarItems';
 import Search from '../Search/Search';
 import { useState } from "react"
-import CreateNewPost from '../Create/CreateNewPost';
+import CreateNewPost from '../CreatePost/CreateNewPost';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../context/context';
+import { UserContext } from '../../Context/UserContext';
 const TopNav = () => {
   const [searchDisplay, setSearchDisplay] = useState(false)
   const [createPostDisplay, setCreatePostDisplay] = useState(false)

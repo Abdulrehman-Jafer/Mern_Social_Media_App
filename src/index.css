@@ -23,12 +23,7 @@
     border: none;
     outline: none;
 }
-.absoluteCenter{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
+
 .boxShadow{
     box-shadow: 0 0 2000px 1000px rgba(0, 0, 0, 0.5);
 }

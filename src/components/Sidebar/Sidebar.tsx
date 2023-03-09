@@ -5,7 +5,7 @@ import userImage from "../../assets/userImage.jpg"
 import SideBarItems from './SideBarItems';
 import Search from '../Search/Search';
 import { useState } from "react"
-import CreateNewPost from '../Create/CreateNewPost';
+import CreateNewPost from '../CreatePost/CreateNewPost';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 const Sidebar = ({fixed}:{fixed?:boolean}) => {
@@ -15,7 +15,6 @@ const Sidebar = ({fixed}:{fixed?:boolean}) => {
     setSearchDisplay(prev => prev ? false : true)
   }
   const createPostDisplayHandler = () => {
-    window.scrollTo(0,0)
     setCreatePostDisplay(prev => {
       if (!prev) {
         document.body.style.overflow = "hidden"

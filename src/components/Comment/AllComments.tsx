@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useRef } from 'react'
 import Comment from './Comment'
-import { ofComment } from './Post'
+import { ofComment } from '../../types'
 import { GetAllCommenstUrl } from '../../globles/globles'
 import axios from 'axios'
 import { v4 } from "uuid";

@@ -1,48 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useContext, useRef, useEffect } from 'react'
+import axios from 'axios';
+import PostButton from './PostButton';
+import Options from './Options';
+import Timeago from '../TimeAgo/TimeAgo';
+import PostComments from "../Comment/Index"
+import { ofPostProps } from './file.type';
+import { UserContext } from '../../Context/UserContext';
+import { deletePostUrl, savePostUrl, LikePostUrl } from '../../globles/globles';
+import { TiTick } from "react-icons/ti"
+import { BsFillPlusCircleFill } from "react-icons/bs"
 import { BsThreeDots } from "react-icons/bs"
 import { FaHeart, FaComment, } from 'react-icons/fa';
 import { BsDot } from "react-icons/bs"
-import PostButtons from './PostButtons';
-import CommentsSection from './CommentsSection';
-import { LikePostUrl } from '../../globles/globles';
-import axios from 'axios';
-import { useContext } from 'react';
-import { UserContext } from '../../context/context';
-import NewComment from './NewComment';
-import Options from './Options';
-import { deletePostUrl, savePostUrl } from '../../globles/globles';
-import { BsFillPlusCircleFill } from "react-icons/bs"
-import { TiTick } from "react-icons/ti"
 import { toast } from 'react-toastify';
+import Warning from '../Warning/Warning';
 
-export type ofComment = {
-    username: string
-    userimage: string
-    userId: string
-    commentBody: string
-}
-
-type ofPost = {
-    creatorname: string,
-    creatorimage: string,
-    postImage: string,
-    likes: string[],
-    createdOn: string,
-    caption: string,
-    postId: string,
-    creatorId: string,
-    comments: ofComment[]
-}
-const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage, postId, creatorId }: ofPost) => {
-    let d1 = new Date(createdOn)
+const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage, postId, creatorId }: ofPostProps) => {
     const [like, setLike] = useState(0)
-    const [showComments, setShowComments] = useState(false)
-    const [reload, setReload] = useState(0)
     const [disable, setDisable] = useState(false)
-    const [options, setOptions] = useState(false)
+    const [optionsDisplay, setOptionsDisplay] = useState(false)
     const [processing, setProcessing] = useState(false)
     const [savedPost, setSavedPost] = useState(false)
     const [focusCount, setFocusCount] = useState(0)
+    const [warningDisplay, setWarningDisplay] = useState(false)
+
     const { userData: { _id, userimage, username, saved }, renewUserData } = useContext(UserContext)
     const LikePost = async () => {
         return await axios.post(LikePostUrl, { userId: _id, postId }).then(res => {
@@ -50,22 +31,23 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
             if (res.status == 200) {
                 setLike(prev => prev + 1)
                 setDisable(true)
-                toast.success("successful")
+                toast.success("Successful")
             }
         }).catch(err => {
             console.log(err)
+            toast.error("Something went wrong")
         })
     }
     const deletePost = async () => {
         const Url = deletePostUrl + "/" + _id + "/" + postId
-        console.log(Url)
         await axios.delete(Url).then(res => {
             if (res.status == 200) {
                 toast.success("successful")
                 return window.location.reload()
             }
         }).catch(err => {
-            throw (err)
+            toast.error("Something went wrong")
+            console.error(err)
         })
     }
     const saveThePost = async () => {
@@ -75,14 +57,28 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 setSavedPost(true)
                 setProcessing(false)
                 renewUserData()
-                toast.success("successful")
+                toast.success("Successful")
             }
         }).catch(err => {
             setProcessing(false)
-            console.log(err)
+            toast.error("Something went wrong")
+            console.error(err)
         })
     }
-  
+    const handleCancel = () => {
+        setOptionsDisplay(false)
+    }
+
+    const ref = useRef<HTMLElement>(null)
+    const handleDisplayBlur = (event: MouseEvent) => {
+        if (!ref.current?.contains(event.target as Node)) {
+            handleCancel()
+        }
+    }
+    useEffect(() => {
+        document.addEventListener("click", handleDisplayBlur)
+        return () => document.removeEventListener("click", handleDisplayBlur)
+    }, [])
     return (
         <>
             <main className='p-2 max-w-[600px] w-full flex flex-col gap-[1rem] bg-transparent backdrop-blur-[1px] rounded-lg border border-pickedColor'>
@@ -92,11 +88,14 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                             <img src={creatorimage} alt="userImage" className='h-8 w-8 rounded-full' />
                             <p>{creatorname}</p>
                             <BsDot />
-                            <span className='text-gray-500 flex gap-[2px]'><span className='sm:block hidden'>Posted on</span> {d1.toString().slice(0, 15)}</span>
+                            <Timeago createdOn={createdOn} />
                         </div>
-                        <span className={`relative ${_id === creatorId ? "" : "hidden"}`}>
-                            <BsThreeDots className='hover:text-gray-400 cursor-pointer' onClick={() => setOptions(prev => !prev)} />
-                            {options && <Options deletePost={deletePost} />}
+                        <span ref={ref} className={`relative ${_id === creatorId ? "" : "hidden"}`}>
+                            <BsThreeDots className='hover:text-gray-400 cursor-pointer' onClick={() => setOptionsDisplay(prev => !prev)} />
+                            {optionsDisplay && <Options deletePost={() => {
+                                setOptionsDisplay(false)
+                                setWarningDisplay(true)
+                                }} handleCancel={handleCancel} />}
                         </span>
                     </div>
                 </section>
@@ -107,22 +106,26 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                     </p>
                 </section>
                 <section className='flex gap-3'>
-                    <PostButtons title={`${likes.includes(_id) || disable ? "Liked" : "Like"}`} icon={FaHeart} color={likes.includes(_id) || disable ? "text-rose-400" : ""} btnFunction={LikePost} disable={likes.includes(_id) || disable} />
-                    <PostButtons title='Comment' icon={FaComment} btnFunction={() => setFocusCount(prev => prev + 1)} />
-                    <PostButtons
+                    <PostButton
+                        title={`${likes.includes(_id) || disable ? "Liked" : "Like"}`}
+                        icon={FaHeart} color={likes.includes(_id) || disable ? "text-rose-400" : ""}
+                        btnFunction={LikePost} disable={likes.includes(_id) || disable}
+                    />
+                    <PostButton
+                        title='Comment'
+                        icon={FaComment}
+                        btnFunction={() => setFocusCount(prev => prev + 1)}
+                    />
+                    <PostButton
                         title={`${saved.includes(postId) || savedPost ? "Saved" : "Save"}`}
                         icon={saved.includes(postId) || savedPost ? TiTick : BsFillPlusCircleFill}
                         disable={processing || saved.includes(postId) || savedPost}
                         btnFunction={() => saveThePost()}
                     />
                 </section>
-                <section>
-                    {!showComments && <span className='text-slate-500 underline cursor-pointer' onClick={() => setShowComments(true)}>View all of the other comments</span>}
-                </section>
-                {focusCount > 0 && <NewComment userId={_id} userimage={userimage} username={username} postId={postId} reloadComments={() => setReload(prev => prev + 1)} focusCount={focusCount} />}
-                <CommentsSection postId={postId} showComments={showComments} reload={reload} />
-                {showComments && <span className='text-slate-500 underline text-end cursor-pointer' onClick={() => setShowComments(false)}>Close the comments</span>}
+                <PostComments _id={_id} postId={postId} userimage={userimage} username={username} focusCount={focusCount} />
             </main>
+            <Warning message="Are you sure you want to delete this post?" onCancel={() => setWarningDisplay(false)} display={warningDisplay} onConfirm={deletePost} />
         </>
     )
 }

@@ -1,13 +1,13 @@
-import React, { FormEvent, useEffect, useState } from 'react'
-import { uploadImage } from './FireBase'
+import { FormEvent, useState } from 'react'
+import { uploadImage } from '../Firebase/FireBase'
 import axios from "axios"
 import { useContext } from 'react'
-import { UserContext } from '../../context/context'
+import { UserContext } from '../../Context/UserContext'
 import { createPostUrl } from '../../globles/globles'
 import Loader from '../../globles/Loader';
 import {toast} from "react-toastify"
 
-const CreatePostForm = ({ img, file, disable }: { img: string, file: File, disable: boolean }) => {
+const Form = ({ img, file, disable }: { img: string, file: File, disable: boolean }) => {
     const { userData, renewUserData } = useContext(UserContext)
     const { username, userimage, _id } = userData
     const [caption, setCaption] = useState("")
@@ -62,4 +62,4 @@ const CreatePostForm = ({ img, file, disable }: { img: string, file: File, disab
     )
 }
 
-export default CreatePostForm
+export default Form

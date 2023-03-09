@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../context/context'
-import InputFields from '../components/Login_SignUp/InputFields'
+import { UserContext } from '../Context/UserContext'
+import InputFields from '../components/Input/InputFields'
 import { ImUser } from "react-icons/im"
 import { BiLockAlt } from "react-icons/bi"
 import Loader from '../globles/Loader'

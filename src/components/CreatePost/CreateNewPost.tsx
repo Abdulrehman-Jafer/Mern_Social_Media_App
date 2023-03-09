@@ -1,8 +1,8 @@
 import React, { useRef, useState, ChangeEvent, useEffect } from 'react'
-import CreatePostForm from './CreatePostForm'
+import Form from './Form'
 import { FiArrowLeft } from "react-icons/fi"
 import { RxCross2 } from "react-icons/rx"
-import Warning from './Warning'
+import Warning from '../Warning/Warning'
 
 const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: { createPostDisplay: boolean, handleCreatePostDisplay: () => void }) => {
     const inputRef = useRef<HTMLInputElement>(null)
@@ -41,9 +41,9 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
     }
     return (
         <>
-            <main className={`absolute w-[100%] text-white z-30 h-[100%] flex items-center ${createPostDisplay ? "" : "hidden"}`}>
+            <main className={`fixed w-screen h-screen text-white z-30 flex justify-center items-center ${createPostDisplay ? "" : "hidden"}`}>
                 <section
-                    className='bg-pickedColor md:w-[50rem] w-[100%] lg:w-[50rem] mx-auto h-[40rem] boxShadow p-4'
+                    className='bg-pickedColor md:w-[50rem] w-full lg:w-[50rem] mx-auto h-[40rem] boxShadow p-4'
                 >
                     <div className='flex border-b-2 pb-[1rem] justify-center relative'>
                         <h1>Create New Post</h1>
@@ -66,13 +66,13 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
                                 Add an Image
                             </button>
                             :
-                            <CreatePostForm img={image} file={imageFile!} disable={warningDisplay}/>
+                            <Form img={image} file={imageFile!} disable={warningDisplay}/>
                         }
                         <input ref={inputRef} accept="image/*" type="file" className='hidden' onChange={(event) => onChangeHandler(event)} />
                     </div>
                 </section>
             </main>
-            <Warning display={warningDisplay} yesHandler = {goBack} cancelHandler = {()=>setWarningDisplay(false)}/>
+            <Warning message='Your progress wont be saved. Would you like to discard all the changes ?' display={warningDisplay} onConfirm = {goBack}  onCancel= {()=>setWarningDisplay(false)}/>
         </>
     )
 }

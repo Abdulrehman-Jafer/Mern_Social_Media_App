@@ -31,6 +31,5 @@ export const uploadImage = async (file: File) => {
         .catch((err) => console.log(err))
     )
     .catch((err) => console.log(err));
-    console.log(imageUrl)
     return imageUrl
 };

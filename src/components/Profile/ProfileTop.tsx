@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef,useEffect } from 'react'
 import { IoIosSettings } from "react-icons/io"
 import ProfileSettings from './ProfileSettings'
-import { UserContext } from '../../context/context'
+import { UserContext } from '../../Context/UserContext'
 const ProfileTop = () => {
     const [display, setDisplay] = useState(false)
     const { userData:{_id,likedPost,username,userimage,posts}, LogOut } = useContext(UserContext)

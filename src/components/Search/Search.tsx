@@ -3,7 +3,7 @@ import { RxCrossCircled, RxScissors } from "react-icons/rx"
 import { useState, ChangeEvent, useEffect, useRef, FormEvent } from "react"
 import axios from "axios"
 import { searchURl } from "../../globles/globles"
-import { ofUserData } from "../../types."
+import { ofUserData } from "../../types"
 import Result from "./Result"
 import Loader from "../../globles/Loader"
 import { toast } from 'react-toastify';

@@ -3,8 +3,8 @@ import ProfilePost from './ProfilePost'
 import { getUserPostUrl } from '../../globles/globles'
 import axios from "axios"
 import { useContext, useEffect } from 'react'
-import { UserContext } from '../../context/context'
-import { OfPost } from '../../types.'
+import { UserContext } from '../../Context/UserContext'
+import { OfPost } from '../../types'
 import Loader from '../../globles/Loader'
 
 const UserPosts = () => {

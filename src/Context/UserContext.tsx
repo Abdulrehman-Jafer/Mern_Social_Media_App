@@ -4,7 +4,7 @@ import { SignUpUrl, LogInUrl } from "../globles/globles";
 import { ofSignUp, ofLogIn } from "../globles/globles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { emptyUserData, ofUserData } from "../types.";
+import { emptyUserData, ofUserData } from "../types";
 import { toast } from 'react-toastify';
 
 type ofProviderValue = {

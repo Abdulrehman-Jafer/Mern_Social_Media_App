@@ -5,7 +5,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import { useEffect, useContext } from 'react'
 import LoginScrren from './screens/LoginScrren'
-import { UserContext } from './context/context'
+import { UserContext } from './Context/UserContext'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

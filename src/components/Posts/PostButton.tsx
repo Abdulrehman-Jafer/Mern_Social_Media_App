@@ -9,7 +9,7 @@ type Props = {
 }
 
 
-const PostButtons = ({ title, icon, btnFunction, disable,color }: Props) => {
+const PostButton = ({ title, icon, btnFunction, disable,color }: Props) => {
     return (
         <div className={`flex gap-2 items-center ${disable ? "bg-blue-700" : "bg-blue-500"} px-4 rounded-lg hover:bg-blue-700 ${color ? color : "text-white"} h-[40px] ${disable ? "cursor-default" : "cursor-pointer"}`} onClick={btnFunction}>
             {React.createElement(icon)}
@@ -18,4 +18,4 @@ const PostButtons = ({ title, icon, btnFunction, disable,color }: Props) => {
     )
 }
 
-export default PostButtons
+export default PostButton

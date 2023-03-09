@@ -1,7 +1,7 @@
 import React, {useState, useContext } from 'react'
-import { UserContext } from '../context/context'
+import { UserContext } from '../Context/UserContext'
 import { fileOnChangeHandler } from '../globles/globles'
-import InputFields from '../components/Login_SignUp/InputFields'
+import InputFields from '../components/Input/InputFields'
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import { ImUser } from "react-icons/im"

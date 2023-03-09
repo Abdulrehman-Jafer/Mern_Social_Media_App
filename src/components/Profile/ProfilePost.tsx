@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { BsHeartFill } from "react-icons/bs"
 import { BsFillChatFill } from "react-icons/bs"
-import { ofComment } from '../Home/Post'
+import { ofComment } from '../Posts/Post'
 
 const ProfilePost = ({id, postImage,likes,comments }: {id:string, postImage: string,likes:string[],comments:ofComment[] }) => {
     const [isHovering, setIsHovering] = useState(false)

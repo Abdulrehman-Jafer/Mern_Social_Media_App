@@ -1,4 +1,3 @@
-import { ofComment } from "./components/Home/Post";
 export type ofUserData = {
   _id: string;
   username: string;
@@ -8,6 +7,14 @@ export type ofUserData = {
   saved: string[];
   likedPost: string[];
 };
+
+export type ofComment = {
+  username: string
+  userimage: string
+  userId: string
+  commentBody: string
+}
+
 export type OfPost = {
   createdBy: {
     userId: string;

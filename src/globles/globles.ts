@@ -11,7 +11,7 @@ export const savePostUrl = "https://spieser-api.onrender.com/api/post/savepost"
 export const getSavedPostUrl = "https://spieser-api.onrender.com/api/post/getsavedpost"
 export const searchURl = "https://spieser-api.onrender.com/api/user/search"
 import { SetStateAction } from "react";
-import { uploadImage } from "../components/Create/FireBase";
+import { uploadImage } from "../components/Firebase/FireBase";
 
 export const fileOnChangeHandler = async (
   event: React.ChangeEvent,

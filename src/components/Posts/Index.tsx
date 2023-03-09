@@ -3,13 +3,12 @@ import axios from "axios"
 import { getAllPostUrl } from '../../globles/globles'
 import { useEffect } from 'react'
 import Post from './Post'
-import { OfPost } from '../../types.'
+import { OfPost } from '../../types'
 import Loader from '../../globles/Loader'
 
-const PostMap = () => {
+const Index = () => {
     const [posts, setPosts] = useState<OfPost[]>([])
     const [processing, setProcessing] = useState(false)
-
 
     useEffect(() => {
         const getAllPosts = async () => {
@@ -20,9 +19,7 @@ const PostMap = () => {
                     setPosts(res.data.Posts)
                     console.log(res)
                 }
-            }).catch(err => {
-                console.log(err)
-            })
+            }).catch(err => console.log(err))
         }
             getAllPosts()
     }, [])
@@ -46,4 +43,4 @@ const PostMap = () => {
     )
 }
 
-export default PostMap
+export default Index
