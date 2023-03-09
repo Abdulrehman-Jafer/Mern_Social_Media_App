@@ -1,13 +1,11 @@
-import React,{useContext} from 'react';
 import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
-import SideBarItems from './SideBarItems';
+import SideBarItems from '../Navigator/Navigator';
 import Search from '../Search/Search';
 import { useState } from "react"
 import CreateNewPost from '../CreatePost/CreateNewPost';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../Context/UserContext';
 const TopNav = () => {
   const [searchDisplay, setSearchDisplay] = useState(false)
   const [createPostDisplay, setCreatePostDisplay] = useState(false)

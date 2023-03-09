@@ -9,7 +9,7 @@ type Props = {
     active?:boolean
 }
 
-const SideBarItems = ({ title, icon, img, clickHandler,active }: Props) => {
+const Navigator = ({ title, icon, img, clickHandler,active }: Props) => {
     const [isHovering, setIsHovering] = useState(false)
     const handleMouseEnter = () => {
         setIsHovering(true)
@@ -31,4 +31,4 @@ const SideBarItems = ({ title, icon, img, clickHandler,active }: Props) => {
     )
 }
 
-export default SideBarItems
+export default Navigator

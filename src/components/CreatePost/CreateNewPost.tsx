@@ -1,4 +1,4 @@
-import React, { useRef, useState, ChangeEvent, useEffect } from 'react'
+import { useRef, useState, ChangeEvent } from 'react'
 import Form from './Form'
 import { FiArrowLeft } from "react-icons/fi"
 import { RxCross2 } from "react-icons/rx"
@@ -11,8 +11,6 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
     const [formDisplay, setFormDisplay] = useState(false)
     const [warningDisplay,setWarningDisplay] = useState(false)
     
-
-
     const addAnImage = () => {
         inputRef.current?.click()
     }
@@ -34,10 +32,10 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
         setFormDisplay(true)
     }
     const goBack = () => {
-        window.location.reload()
         setImage("")
         setFormDisplay(false)
         setImageFile(undefined)
+        window.location.reload()
     }
     return (
         <>

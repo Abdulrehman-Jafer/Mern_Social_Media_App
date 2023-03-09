@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import axios from "axios"
-import { getAllPostUrl } from '../../globles/globles'
+import { getAllPostUrl } from '../../constants/constants'
 import { useEffect } from 'react'
 import Post from './Post'
 import { OfPost } from '../../types'
-import Loader from '../../globles/Loader'
+import Loader from '../loader/Loader'
 
 const Index = () => {
     const [posts, setPosts] = useState<OfPost[]>([])

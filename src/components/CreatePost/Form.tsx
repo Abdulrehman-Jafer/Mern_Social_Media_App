@@ -1,15 +1,12 @@
 import { FormEvent, useState } from 'react'
-import { uploadImage } from '../Firebase/FireBase'
+import { uploadImage } from '../../utils/firebase config/FireBase'
 import axios from "axios"
-import { useContext } from 'react'
-import { UserContext } from '../../Context/UserContext'
-import { createPostUrl } from '../../globles/globles'
-import Loader from '../../globles/Loader';
-import {toast} from "react-toastify"
-
+import { createPostUrl } from '../../constants/constants'
+import { toast } from "react-toastify"
+import Loader from '../loader/Loader'
+import useContextData from '../../hooks/useContextData'
 const Form = ({ img, file, disable }: { img: string, file: File, disable: boolean }) => {
-    const { userData, renewUserData } = useContext(UserContext)
-    const { username, userimage, _id } = userData
+    const { userData: { username, userimage, _id }, renewUserData } = useContextData()
     const [caption, setCaption] = useState("")
     const [processing, setProcessing] = useState(false)
 
@@ -56,7 +53,11 @@ const Form = ({ img, file, disable }: { img: string, file: File, disable: boolea
                     required
                 >
                 </textarea>
-                <button type='submit' className={`bg-slate-500 text-lg font-bold p-2 rounded-[2rem] ${!disable ? "hover:bg-slate-600" : ""}`} disabled={processing || disable}>{processing ? <Loader/> : "Post Now"}</button>
+                <button type='submit'
+                    className={`bg-slate-500 text-lg font-bold p-2 rounded-[2rem] ${!disable ? "hover:bg-slate-600" : ""}`}
+                    disabled={processing || disable}>
+                    {processing ? <Loader /> : "Post Now"}
+                </button>
             </form>
         </main>
     )

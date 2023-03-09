@@ -1,14 +1,13 @@
-import React from 'react'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../Context/UserContext'
 import InputFields from '../components/Input/InputFields'
 import { ImUser } from "react-icons/im"
 import { BiLockAlt } from "react-icons/bi"
-import Loader from '../globles/Loader'
+import Loader from '../components/loader/Loader'
+import useContextData from '../hooks/useContextData'
 
 const LoginScrren = () => {
-    const { LogIn, processing } = useContext(UserContext)
+    const { LogIn, processing } = useContextData()
     const [logInInfo, setLogInnfo] = useState({ username: "", password: "" })
     return (
         <main className='w-[100%] h-[100vh] backgroundImage flex justify-center items-center'>
@@ -24,7 +23,7 @@ const LoginScrren = () => {
                     </button>
                 </form>
                 <div className='flex flex-wrap justify-center'>
-                    <span className='text-white'>Don't have an account?</span><Link to={"/signup"} className='text-white font-semibold underline'>Create an account</Link>
+                    <span className='text-white'>Don't have an account?</span><Link to={"/signup"}  className='text-white font-semibold underline'>Create an account</Link>
                 </div>
             </section>
         </main>

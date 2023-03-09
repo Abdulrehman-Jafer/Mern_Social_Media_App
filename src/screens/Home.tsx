@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar/Sidebar'
-import TopNav from '../components/Sidebar/TopNav'
+import TopNav from '../components/Navbar/Navbar'
 import Posts from '../components/Posts/Index'
 const HomeScreen = () => {
     return (

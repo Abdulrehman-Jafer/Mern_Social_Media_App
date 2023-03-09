@@ -1,12 +1,12 @@
 import { FiArrowLeft } from "react-icons/fi"
-import { RxCrossCircled, RxScissors } from "react-icons/rx"
+import { RxCrossCircled, } from "react-icons/rx"
 import { useState, ChangeEvent, useEffect, useRef, FormEvent } from "react"
 import axios from "axios"
-import { searchURl } from "../../globles/globles"
+import { searchURl } from "../../constants/constants"
 import { ofUserData } from "../../types"
-import Result from "./Result"
-import Loader from "../../globles/Loader"
+import FoundedUser from "./FoundedUser"
 import { toast } from 'react-toastify';
+import Loader from "../loader/Loader"
 
 const Search = ({ displayValue = false, goBack }: { displayValue: boolean, goBack: () => void }) => {
     const [searchText, setSearchText] = useState("")
@@ -46,14 +46,14 @@ const Search = ({ displayValue = false, goBack }: { displayValue: boolean, goBac
             toast.success(`Searched for ${searchText}`)
             setIsSearched(true)
             setIsSearching(false)
-            return setSearchResult(res.data.result)
+            setSearchResult(res.data.result)
         }).catch(err => {
             setIsSearching(false)
             toast.error("Something went wrong!")
-            return console.log(err)
+            console.log(err)
         })
     }
-    const ResultMap = searchResult.map(({ username, userimage, _id }) => <Result key={_id} username={username} userimage={userimage} />)
+    const ResultMap = searchResult.map(({ username, userimage, _id }) => <FoundedUser key={_id} username={username} userimage={userimage} />)
     const searchData = !searchResult.length ?
         isSearched && <div className="flex justify-center flex-col items-center mt-10">
             <p>Not Found</p>
@@ -65,7 +65,7 @@ const Search = ({ displayValue = false, goBack }: { displayValue: boolean, goBac
             {ResultMap}
         </div>
     return (
-        <main className={`fixed left-0 w-[20%] mediaWidth mediaMargin h-full z-10 bg-black text-white p-4 ${displayValue ? "" : "hidden"} border-r-2`}>
+        <main className={`fixed left-0 w-[20%] sm:min-w-[280px] mediaWidth mediaMargin h-full z-10 bg-black text-white p-4 ${displayValue ? "" : "hidden"} border-r-2`}>
             <div className='flex items-center text-2xl bold gap-4'>
                 <FiArrowLeft className='cursor-pointer text-gray-300 hover:text-white' onClick={goBack} />
                 <h1>Search</h1>

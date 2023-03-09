@@ -1,18 +1,11 @@
-import React, { FormEvent,useEffect,useRef, useState } from 'react'
-import { AddCommentUrl } from '../../globles/globles'
+import { FormEvent, useEffect, useRef, useState } from 'react'
+import { AddCommentUrl } from '../../constants/constants'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 type ofComment = { username: string, userimage: string, userId: string, commentBody: string, postId: string }
 
-const Form = ({ username, userimage, userId, postId,reloadComments,focusCount }: { username: string, userimage: string, userId: string, postId: string,reloadComments:()=>void,focusCount:number}) => {
-    const [comment, setComment] = useState<ofComment>(
-        {
-            username,
-            userimage,
-            userId,
-            commentBody: "",
-            postId
-        })
+const Form = ({ username, userimage, userId, postId, reloadComments, focusCount }: { username: string, userimage: string, userId: string, postId: string, reloadComments: () => void, focusCount: number }) => {
+    const [comment, setComment] = useState<ofComment>({ username, userimage, userId, commentBody: "", postId })
     const [processing, setProcessing] = useState(false)
     const addAComment = async (event: FormEvent) => {
         event.preventDefault()
@@ -21,7 +14,7 @@ const Form = ({ username, userimage, userId, postId,reloadComments,focusCount }:
             console.log(comment)
             if (res.status == 201) {
                 setProcessing(false)
-                setComment(prev => ({...prev,commentBody:""}))
+                setComment(prev => ({ ...prev, commentBody: "" }))
                 reloadComments()
                 toast.success("Successful")
             }
@@ -32,11 +25,11 @@ const Form = ({ username, userimage, userId, postId,reloadComments,focusCount }:
         })
     }
     const ref = useRef<HTMLTextAreaElement>(null)
-    useEffect(()=>{
-        if(focusCount > 0){
+    useEffect(() => {
+        if (focusCount > 0) {
             ref.current?.focus()
         }
-    },[focusCount])
+    }, [focusCount])
     return (
         <main>
             <form onSubmit={(event) => addAComment(event)} className='flex flex-col gap-1 relative'>

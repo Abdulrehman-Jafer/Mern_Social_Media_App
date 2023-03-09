@@ -33,3 +33,9 @@ export const uploadImage = async (file: File) => {
     .catch((err) => console.log(err));
     return imageUrl
 };
+
+// export const deleteImage = async (imageUrl: string) => {
+//   // Parse the URL to get the image path
+//  const imageRef = ref (storage,imageUrl)
+//  imageRef.delete()
+// };

@@ -1,10 +1,10 @@
-import React, { useState, useContext, useRef,useEffect } from 'react'
+import { useState, useRef,useEffect } from 'react'
 import { IoIosSettings } from "react-icons/io"
-import ProfileSettings from './ProfileSettings'
-import { UserContext } from '../../Context/UserContext'
+import Settings from '../settings.tsx/Settings'
+import useContextData from '../../hooks/useContextData'
 const ProfileTop = () => {
     const [display, setDisplay] = useState(false)
-    const { userData:{_id,likedPost,username,userimage,posts}, LogOut } = useContext(UserContext)
+    const { userData:{username,userimage,posts}, LogOut } = useContextData()
     const handleCancel = () => {
         setDisplay(false)
     }
@@ -33,10 +33,10 @@ const ProfileTop = () => {
                     <div className='flex gap-4 items-center justify-center'>
                         <span>{username}</span>
                         <div className='flex items-center gap-2 relative'>
-                            <button className='bg-slate-200 p-1 px-3 flex gap-1 rounded-md text-black hover:bg-white'><span className='mediaHidden text-black'>Edit</span>Profile</button>
+                            <button className='bg-slate-200 px-2 flex gap-1 rounded-sm text-black hover:bg-white'><span className='mediaHidden text-black'>Edit</span>Profile</button>
                             <span ref={spanRef}>
                                 <IoIosSettings className='text-2xl cursor-pointer' onClick={() => setDisplay(prev => !prev)} />
-                                <ProfileSettings display={display} LogOut={LogOut} cancel={handleCancel} />
+                                <Settings display={display} LogOut={LogOut} cancel={handleCancel} />
                             </span>
                         </div>
                     </div>

@@ -1,12 +1,11 @@
-import { useState, useContext, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
 import PostButton from './PostButton';
 import Options from './Options';
 import Timeago from '../TimeAgo/TimeAgo';
 import PostComments from "../Comment/Index"
 import { ofPostProps } from './file.type';
-import { UserContext } from '../../Context/UserContext';
-import { deletePostUrl, savePostUrl, LikePostUrl } from '../../globles/globles';
+import { deletePostUrl, savePostUrl, LikePostUrl } from '../../constants/constants';
 import { TiTick } from "react-icons/ti"
 import { BsFillPlusCircleFill } from "react-icons/bs"
 import { BsThreeDots } from "react-icons/bs"
@@ -14,6 +13,7 @@ import { FaHeart, FaComment, } from 'react-icons/fa';
 import { BsDot } from "react-icons/bs"
 import { toast } from 'react-toastify';
 import Warning from '../Warning/Warning';
+import useContextData from '../../hooks/useContextData';
 
 const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage, postId, creatorId }: ofPostProps) => {
     const [like, setLike] = useState(0)
@@ -24,7 +24,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
     const [focusCount, setFocusCount] = useState(0)
     const [warningDisplay, setWarningDisplay] = useState(false)
 
-    const { userData: { _id, userimage, username, saved }, renewUserData } = useContext(UserContext)
+    const { userData: { _id, userimage, username, saved }, renewUserData } = useContextData()
     const LikePost = async () => {
         return await axios.post(LikePostUrl, { userId: _id, postId }).then(res => {
             console.log(res)
@@ -39,17 +39,27 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
         })
     }
     const deletePost = async () => {
-        const Url = deletePostUrl + "/" + _id + "/" + postId
-        await axios.delete(Url).then(res => {
-            if (res.status == 200) {
-                toast.success("Successful")
-                return window.location.reload()
+        const Url = deletePostUrl + "/" + _id + "/" + postId;
+        toast.promise(
+            axios.delete(Url),
+            {
+                pending:"Deleting the Post",
+                success:{
+                    render:()=>{
+                        window.location.reload()
+                        return toast.success("Successfully Deleted")
+                    }
+                },
+                error:{
+                    render:(err)=>{
+                        console.error(err)
+                        return toast.error("Something went wrong")
+                    }
+                }
             }
-        }).catch(err => {
-            toast.error("Something went wrong")
-            console.error(err)
-        })
-    }
+        )
+      }
+      
     const saveThePost = async () => {
         setProcessing(true)
         await axios.post(savePostUrl, { userId: _id, postId: postId }).then(res => {

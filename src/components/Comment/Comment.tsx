@@ -1,4 +1,3 @@
-import React, { useContext } from 'react'
 const Comment = ({ username, userimage, commentBody }: { username: string, userimage: string, commentBody: string }) => {
     return (
         <main className='text-white flex gap-3 items-center border-fourth'>

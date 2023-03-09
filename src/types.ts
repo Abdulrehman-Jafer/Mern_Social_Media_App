@@ -28,12 +28,13 @@ export type OfPost = {
   createdOn: string;
   comments: ofComment[];
 };
-export const emptyUserData = {
-  _id: "",
-  username: "",
-  password: "",
-  userimage: "",
-  posts: [],
-  saved: [],
-  likedPost: [],
+export type ofSignUp = {
+  username: string;
+  password: string;
+  confirm:string;
+  userimage: string;
 };
+export type ofLogIn = {
+    username:string,
+    password:string,
+}

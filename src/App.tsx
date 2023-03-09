@@ -1,17 +1,16 @@
-import React from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import HomeScreen from './screens/HomeScreen'
-import ProfileScreen from './screens/ProfileScreen'
-import SignUpScreen from './screens/SignUpScreen'
-import { useEffect, useContext } from 'react'
-import LoginScrren from './screens/LoginScrren'
-import { UserContext } from './Context/UserContext'
-import { ToastContainer, toast } from 'react-toastify';
+import Home from './screens/Home'
+import Profile from './screens/Profile'
+import SignUp from './screens/SignUp'
+import { useEffect } from 'react'
+import Login from './screens/Login'
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useContextData from './hooks/useContextData'
 
 
 const App = () => {
-  const { userData } = useContext(UserContext)
+  const { userData } = useContextData()
   const navigate = useNavigate()
   useEffect(() => {
     if (!userData._id) {
@@ -22,12 +21,12 @@ const App = () => {
   return (
     <main className='w-[100%] min-h-[100vh] nightSky'>
       <Routes>
-        <Route path='/signup' element={<SignUpScreen />} />
-        <Route path='/login' element={<LoginScrren />} />
-        <Route path='/' element={<HomeScreen />} />
-        <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
-     <ToastContainer/>
+      <ToastContainer />
     </main>
 
   )

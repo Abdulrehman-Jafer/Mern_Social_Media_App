@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { BsHeartFill } from "react-icons/bs"
-import { BsFillChatFill } from "react-icons/bs"
+import { useState } from 'react'
+import { BsHeartFill,BsFillChatFill } from "react-icons/bs"
 import { ofComment } from '../../types'
+import "./post.css"
 
-const ProfilePost = ({id, postImage,likes,comments }: {id:string, postImage: string,likes:string[],comments:ofComment[] }) => {
+const Index = ({id, postImage,likes,comments }: {id:string, postImage: string,likes:string[],comments:ofComment[] }) => {
     const [isHovering, setIsHovering] = useState(false)
     return (
-        <main id={id} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)} className="relative ">
+        <main id={id} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)} className="relative">
             <section>
                 <img src={postImage} alt="postImage" className={`w-[300px] h-[320px] object-fill rounded-lg transition-all border border-pickedColor ${isHovering ? "myBlur" : ""}`} />
             </section>
@@ -24,4 +24,4 @@ const ProfilePost = ({id, postImage,likes,comments }: {id:string, postImage: str
     )
 }
 
-export default ProfilePost
+export default Index
