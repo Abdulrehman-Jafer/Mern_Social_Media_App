@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { BsThreeDots } from "react-icons/bs"
 import { FaHeart, FaComment, } from 'react-icons/fa';
 import { BsDot } from "react-icons/bs"
@@ -52,7 +52,9 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 setDisable(true)
                 toast.success("successful")
             }
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            console.log(err)
+        })
     }
     const deletePost = async () => {
         const Url = deletePostUrl + "/" + _id + "/" + postId
@@ -80,6 +82,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
             console.log(err)
         })
     }
+  
     return (
         <>
             <main className='p-2 max-w-[600px] w-full flex flex-col gap-[1rem] bg-transparent backdrop-blur-[1px] rounded-lg border border-pickedColor'>
@@ -104,7 +107,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                     </p>
                 </section>
                 <section className='flex gap-3'>
-                    <PostButtons title='Like' icon={FaHeart} btnFunction={LikePost} disable={likes.includes(_id) || disable} />
+                    <PostButtons title={`${likes.includes(_id) || disable ? "Liked" : "Like"}`} icon={FaHeart} color={likes.includes(_id) || disable ? "text-rose-400" : ""} btnFunction={LikePost} disable={likes.includes(_id) || disable} />
                     <PostButtons title='Comment' icon={FaComment} btnFunction={() => setFocusCount(prev => prev + 1)} />
                     <PostButtons
                         title={`${saved.includes(postId) || savedPost ? "Saved" : "Save"}`}
@@ -114,10 +117,11 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                     />
                 </section>
                 <section>
-                    <span className='text-slate-500 underline cursor-pointer' onClick={() => setShowComments(true)}>View all of the other comments</span>
+                    {!showComments && <span className='text-slate-500 underline cursor-pointer' onClick={() => setShowComments(true)}>View all of the other comments</span>}
                 </section>
                 {focusCount > 0 && <NewComment userId={_id} userimage={userimage} username={username} postId={postId} reloadComments={() => setReload(prev => prev + 1)} focusCount={focusCount} />}
                 <CommentsSection postId={postId} showComments={showComments} reload={reload} />
+                {showComments && <span className='text-slate-500 underline text-end cursor-pointer' onClick={() => setShowComments(false)}>Close the comments</span>}
             </main>
         </>
     )

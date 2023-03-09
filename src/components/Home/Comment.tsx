@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
-const Comment = ({username,userimage,commentBody}:{username:string,userimage:string,commentBody:string}) => {
+const Comment = ({ username, userimage, commentBody }: { username: string, userimage: string, commentBody: string }) => {
     return (
-        <main className='text-white flex items-center gap-1'>
-            <section className='cursor-default'>
+        <main className='text-white flex gap-3 items-center border-fourth'>
+            <section className='cursor-default flex items-center bg-pickedColor p-1 rounded-sm'>
                 <img src={userimage} alt={userimage} className="h-8 w-8 rounded-full" />
+                <span className='cursor-default text-orange-200 font-bold'>{username}</span>
             </section>
-            <section className='w-[90%]'>
-                <p className='text-white'> <span className='underline cursor-default'>{username}</span> ---{'>'} 
+            <section>
                 {commentBody}
-                </p>
             </section>
         </main>
     )
