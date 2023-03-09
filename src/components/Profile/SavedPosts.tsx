@@ -21,7 +21,6 @@ const SavedPosts = () => {
                     const data = res.data.savedPost.filter((value: OfPost) => value !== null)
                     setLoading(false)
                     setSavedPosts(data)
-                    return toast.success("Sucessfull")
                 }
             }).catch(err => {
                 setLoading(false)
