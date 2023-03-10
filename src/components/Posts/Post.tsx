@@ -112,7 +112,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 <section>
                     <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] sm:w-[580px] min-h-[400px]' />
                     <span className='text-white'>{likes.length + like} likes</span>
-                    <p className='text-white'>{caption}
+                    <p className='text-white font-mono'>{caption}
                     </p>
                 </section>
                 <section className='flex gap-3'>
