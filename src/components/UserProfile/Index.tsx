@@ -27,7 +27,7 @@ const ProfileTop = () => {
         <main>
             <main className='flex gap-7 justify-center items-center p-4 mb-[5rem] mediaFlexCol text-white'>
                 <section>
-                    <img src={userimage} alt={userimage} className="sm:h-[100px] sm:w-[100px] h-[80px] w-[80px] rounded-full" />
+                    <img src={userimage} alt={userimage} className="sm:h-[100px] sm:w-[100px] h-[80px] w-[80px] rounded-full border-4 border-second" />
                 </section>
                 <section className='flex flex-col gap-5'>
                     <div className='flex gap-4 items-center justify-center'>
