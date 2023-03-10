@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
@@ -13,17 +13,16 @@ const Sidebar = ({ fixed }: { fixed?: boolean }) => {
     setSearchDisplay(prev => prev ? false : true)
   }
   const createPostDisplayHandler = () => {
-    setCreatePostDisplay(prev => {
-      if (!prev) {
-        document.body.style.overflow = "hidden"
-        return true
-      }
-      else {
-        document.body.style.overflow = "auto"
-        return false
-      }
-    })
-  }
+    setCreatePostDisplay(prev => !prev)}
+      
+  useEffect(()=>{
+    if(createPostDisplay){
+      document.body.style.overflow = "hidden"
+    }
+    else{
+      document.body.style.overflow = "auto"
+    }
+  },[createPostDisplay])
   const { pathname } = useLocation()
   return (
     <>

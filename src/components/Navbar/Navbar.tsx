@@ -6,6 +6,7 @@ import Search from '../Search/Search';
 import { useState } from "react"
 import CreateNewPost from '../CreatePost/CreateNewPost';
 import { Link } from 'react-router-dom';
+import { useEffect } from "react";
 const TopNav = () => {
   const [searchDisplay, setSearchDisplay] = useState(false)
   const [createPostDisplay, setCreatePostDisplay] = useState(false)
@@ -14,17 +15,16 @@ const TopNav = () => {
     setSearchDisplay(prev => prev ? false : true)
   }
   const createPostDisplayHandler = () => {
-    setCreatePostDisplay(prev => {
-      if (!prev) {
-        document.body.style.overflow = "hidden"
-        return true
-      }
-      else {
-        document.body.style.overflow = "auto"
-        return false
-      }
-    })
+    setCreatePostDisplay(prev => !prev)
   }
+  useEffect(()=>{
+    if(createPostDisplay){
+      document.body.style.overflow = "hidden"
+    }
+    else{
+      document.body.style.overflow = "auto"
+    }
+  },[createPostDisplay])
   return (
     <>
       <main className='mediaBlock justify-between p-2 items-center bg-black text-white w-[100%] hidden border-b fixed z-[20]'>

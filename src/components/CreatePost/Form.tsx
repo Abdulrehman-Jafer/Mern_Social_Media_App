@@ -35,11 +35,11 @@ const Form = ({ img, file, disable }: { img: string, file: File, disable: boolea
         )
     }
     return (
-        <main className='flex flex-wrap gap-3 w-[100%] items-center justify-center'>
-            <section className='w-[100%] flex-1'>
-                <img src={img} alt={img} className="w-[100%] min-w-[200px] h-[15rem] sm:h-[30rem] object-contain" />
+        <main className='flex flex-wrap gap-3 items-center justify-center'>
+            <section className=' flex-1 flex justify-center'>
+                <img src={img} alt={img} className=" min-w-[280px] h-[15rem] sm:h-[30rem] object-contain " />
             </section>
-            <form onSubmit={(event) => OnSubmit(event)} className='flex flex-col gap-2 flex-1'>
+            <form onSubmit={(event) => OnSubmit(event)} className='flex min-w-[280px] flex-col gap-2 flex-1'>
                 <div className='flex items-end gap-2'>
                     <img src={userimage} alt={userimage} className="h-8 w-8 rounded-full" />
                     <p>{username}</p>
@@ -47,14 +47,14 @@ const Form = ({ img, file, disable }: { img: string, file: File, disable: boolea
                 <textarea
                     name="description"
                     placeholder='Caption'
-                    value={caption} cols={30} rows={7}
-                    className="indent-2 bg-rose-100 p-2 rounded-sm outline-none text-black"
+                    value={caption} cols={30} rows={5}
+                    className="indent-2 bg-rose-100 p-2 font-mono rounded-sm outline-none text-black"
                     onChange={(event) => setCaption(event.target.value)}
                     required
                 >
                 </textarea>
                 <button type='submit'
-                    className={`bg-slate-500 text-lg font-bold p-2 rounded-[2rem] ${!disable ? "hover:bg-slate-600" : ""}`}
+                    className={`bg-slate-500 text-lg p-2 font-mono font-medium rounded-sm ${!disable ? "hover:bg-slate-600" : ""}`}
                     disabled={processing || disable}>
                     {processing ? <Loader /> : "Post Now"}
                 </button>
