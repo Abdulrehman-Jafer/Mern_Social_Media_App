@@ -12,12 +12,11 @@ import LocalStorageHandler from "../utils/localsotrage/localsorage handler";
 
 export const UserContext = createContext({} as ofProvider)
 const UserContextProvider = ({ children }: { children: ReactNode }) => {
-    const [processing, setProcessing] = useState(false)
     const {setLocalStorage,localUser} = LocalStorageHandler()
     const [userData, setUserData] = useState<ofUserData>(localUser)
     const navigate = useNavigate()
 
-    const SignUp = async (event:FormEvent, signUpData: ofSignUp, setSignUpData: Dispatch<SetStateAction<ofSignUp>>) => {
+    const SignUp = async (event:FormEvent, signUpData: ofSignUp, setSignUpData: Dispatch<SetStateAction<ofSignUp>>,setProcessing:Dispatch<SetStateAction<boolean>>) => {
         event.preventDefault()
         setProcessing(true)
         await axios.post(SignUpUrl, signUpData)
@@ -35,7 +34,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
                 console.log(err)
             })
     }
-    const LogIn = async (event: FormEvent, LogInInfo: ofLogIn, setLogInnfo: Dispatch<SetStateAction<ofLogIn>>) => {
+    const LogIn = async (event: FormEvent, LogInInfo: ofLogIn, setLogInnfo: Dispatch<SetStateAction<ofLogIn>>,setProcessing:Dispatch<SetStateAction<boolean>>) => {
         event.preventDefault()
         setProcessing(true)
         await axios.post(LogInUrl, LogInInfo).then((res) => {
@@ -74,7 +73,6 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
             {
                 userData,
                 SignUp,
-                processing,
                 LogIn,
                 LogOut,
                 renewUserData
