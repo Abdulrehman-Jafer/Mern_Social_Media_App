@@ -5,12 +5,14 @@ const Warning = ({
     display,
     message,
     onConfirm,
-    onCancel
+    onCancel,
+    processing
 }: {
     display: boolean;
     message: string;
     onConfirm: () => void;
     onCancel: () => void;
+    processing?:boolean
 }) => {
     useEffect(() => {
         if (display) {
@@ -36,12 +38,14 @@ const Warning = ({
                     <button
                         className="bg-slate-800 text-white p-2 h-[3rem] w-[5rem] rounded-lg hover:bg-black"
                         onClick={onCancel}
+                        disabled={processing}
                     >
                         Cancel
                     </button>
                     <button
                         className="bg-slate-800 text-red-600 p-2 h-[3rem] w-[5rem] rounded-lg hover:bg-black"
                         onClick={onConfirm}
+                        disabled={processing}
                     >
                         Confirm
                     </button>

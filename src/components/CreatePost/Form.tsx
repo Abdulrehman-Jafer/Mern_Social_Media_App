@@ -5,7 +5,7 @@ import { createPostUrl } from '../../constants/constants'
 import { toast } from "react-toastify"
 import Loader from '../loader/Loader'
 import useContextData from '../../hooks/useContextData'
-const Form = ({ img, file, disable }: { img: string, file: File, disable: boolean }) => {
+const Form = ({ img, file, disable,setUploading }: { img: string, file: File, disable: boolean,setUploading:(boolean:boolean)=>void }) => {
     const { userData: { username, userimage, _id }, renewUserData } = useContextData()
     const [caption, setCaption] = useState("")
     const [processing, setProcessing] = useState(false)
@@ -13,6 +13,7 @@ const Form = ({ img, file, disable }: { img: string, file: File, disable: boolea
     const OnSubmit = async (event: FormEvent) => {
         event.preventDefault()
         setProcessing(true)
+        setUploading(true)
         const Image = await uploadImage(file)
         const data = {
             userId: _id,
@@ -25,11 +26,13 @@ const Form = ({ img, file, disable }: { img: string, file: File, disable: boolea
                 setProcessing(false)
                 renewUserData()
                 toast.success("Successful")
+                setUploading(false)
                 window.location.reload()
             }
         }).catch(err => {
             setProcessing(false)
             toast.error("Something went wrong")
+            setUploading(false)
             console.log(err)
         }
         )
@@ -54,7 +57,7 @@ const Form = ({ img, file, disable }: { img: string, file: File, disable: boolea
                 >
                 </textarea>
                 <button type='submit'
-                    className={`bg-slate-500 text-lg p-2 font-mono font-medium rounded-sm ${!disable ? "hover:bg-slate-600" : ""}`}
+                    className={`bg-slate-500 text-lg p-2 font-mono font-medium rounded-sm disabled:hover:bg-slate-500 disabled:cursor-default hover:bg-slate-600`}
                     disabled={processing || disable}>
                     {processing ? <Loader /> : "Post Now"}
                 </button>

@@ -39,6 +39,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
         })
     }
     const deletePost = async () => {
+        setProcessing(true)
         const Url = deletePostUrl + "/" + _id + "/" + postId;
         toast.promise(
             axios.delete(Url),
@@ -53,6 +54,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 error:{
                     render:(err)=>{
                         console.error(err)
+                        setProcessing(false)
                         return toast.error("Something went wrong")
                     }
                 }
@@ -110,7 +112,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                     </div>
                 </section>
                 <section>
-                    <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] sm:w-[580px] min-h-[400px]' />
+                    <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] sm:w-[580px] min-h-[300px] sm:h-[500px]' />
                     <span className='text-white'>{likes.length + like} likes</span>
                     <p className='text-white font-mono'>{caption}
                     </p>
@@ -135,7 +137,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 </section>
                 <PostComments _id={_id} postId={postId} userimage={userimage} username={username} focusCount={focusCount} />
             </main>
-            <Warning message="Are you sure you want to delete this post?" onCancel={() => setWarningDisplay(false)} display={warningDisplay} onConfirm={deletePost} />
+            <Warning message="Are you sure you want to delete this post?" onCancel={() => setWarningDisplay(false)} display={warningDisplay} onConfirm={deletePost} processing={processing}/>
         </>
     )
 }
