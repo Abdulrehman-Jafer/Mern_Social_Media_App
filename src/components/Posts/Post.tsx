@@ -112,7 +112,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                     </div>
                 </section>
                 <section>
-                    <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] sm:w-[580px] min-h-[300px] sm:h-[500px]' />
+                    <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] sm:w-[580px] min-h-[300px] max-h-[500px] sm:h-[500px]' />
                     <span className='text-white'>{likes.length + like} likes</span>
                     <p className='text-white font-mono'>{caption}
                     </p>
