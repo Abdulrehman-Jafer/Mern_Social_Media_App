@@ -26,6 +26,7 @@ const Form = ({ img, file, disable,setUploading,handleOnComplete }: { img: strin
                 setProcessing(false)
                 toast.success("Successful")
                 setUploading(false)
+                handleOnComplete()
                 renewUserData()
                 renewPosts()
             }

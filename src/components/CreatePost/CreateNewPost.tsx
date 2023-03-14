@@ -4,6 +4,7 @@ import { FiArrowLeft } from "react-icons/fi"
 import { RxCross2 } from "react-icons/rx"
 import Warning from '../Warning/Warning'
 import { toast } from 'react-toastify'
+import { v4 } from 'uuid'
 
 const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: { createPostDisplay: boolean, handleCreatePostDisplay: () => void }) => {
     const inputRef = useRef<HTMLInputElement>(null)
@@ -12,13 +13,14 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
     const [formDisplay, setFormDisplay] = useState(false)
     const [warningDisplay, setWarningDisplay] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
+    const [key, setKey] = useState(v4());
 
     const addAnImage = () => {
         inputRef.current?.click()
     }
 
     const reader = new FileReader()
-    const onChangeHandler = async (event: ChangeEvent) => {
+    const imageOnChangeHandler = async (event: ChangeEvent) => {
         const { files } = event.target as HTMLInputElement
         if (!files) {
             return
@@ -32,7 +34,9 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
         setImageFile(files[0])
         reader.readAsDataURL(files[0])
         setFormDisplay(true)
+        setKey(v4())
     }
+
     const goBack = () => {
         if (isUploading) {
           return  toast.warning("Upload is in progress")
@@ -40,17 +44,17 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
             setImage("")
             setFormDisplay(false)
             setImageFile(undefined)
-            window.location.reload()
     }
     const setUploading = (boolean:boolean) => {
         console.log("called")
         setIsUploading(boolean)
     }
     const handleOnComplete  = () => {
+        setWarningDisplay(false)
         setFormDisplay(false)
         setImage("")
         setImageFile(undefined)
-        setWarningDisplay(false)
+        handleCreatePostDisplay()
     }
     return (
         <>
@@ -81,11 +85,11 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
                             :
                             <Form img={image} file={imageFile!} disable={warningDisplay} setUploading = {setUploading} handleOnComplete = {handleOnComplete}/>
                         }
-                        <input ref={inputRef} accept="image/*" type="file" className='hidden' onChange={(event) => onChangeHandler(event)} />
+                        <input ref={inputRef} accept="image/*" type="file" key={key} className='hidden' onChange={(event) => imageOnChangeHandler(event)} />
                     </div>
                 </section>
             </main>
-            <Warning message='Your progress wont be saved. Would you like to discard all the changes ?' display={warningDisplay} onConfirm={goBack} onCancel={() => setWarningDisplay(false)} />
+            <Warning message='Your progress wont be saved. Would you like to discard all the changes ?' display={warningDisplay} onConfirm={handleOnComplete} onCancel={() => setWarningDisplay(false)} />
         </>
     )
 }
