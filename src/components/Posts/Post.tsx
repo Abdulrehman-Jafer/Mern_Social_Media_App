@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import axios, { AxiosError } from 'axios';
 import PostButton from './PostButton';
 import Options from './Options';
@@ -14,6 +14,7 @@ import { BsDot } from "react-icons/bs"
 import { toast } from 'react-toastify';
 import Warning from '../Warning/Warning';
 import useContextData from '../../hooks/useContextData';
+import useClickOutside from '../../hooks/useClickOutside';
 
 const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage, postId, creatorId }: ofPostProps) => {
     const [like, setLike] = useState(0)
@@ -95,15 +96,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
     }
 
     const ref = useRef<HTMLElement>(null)
-    const handleDisplayBlur = (event: MouseEvent) => {
-        if (!ref.current?.contains(event.target as Node)) {
-            handleCancel()
-        }
-    }
-    useEffect(() => {
-        document.addEventListener("click", handleDisplayBlur)
-        return () => document.removeEventListener("click", handleDisplayBlur)
-    }, [])
+    useClickOutside(ref,handleCancel)
     return (
         <>
             <main className='p-2 max-w-[600px] w-full flex flex-col gap-[1rem] bg-transparent backdrop-blur-[1px] rounded-lg border border-pickedColor'>

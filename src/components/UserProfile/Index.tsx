@@ -2,6 +2,7 @@ import { useState, useRef,useEffect } from 'react'
 import { IoIosSettings } from "react-icons/io"
 import Settings from '../settings.tsx/Settings'
 import useContextData from '../../hooks/useContextData'
+import useClickOutside from '../../hooks/useClickOutside'
 const ProfileTop = () => {
     const [display, setDisplay] = useState(false)
     const { userData:{username,userimage,posts}, LogOut } = useContextData()
@@ -10,19 +11,9 @@ const ProfileTop = () => {
     }
 
     const spanRef = useRef<HTMLSpanElement>(null);
+    useClickOutside(spanRef,()=>setDisplay(false))
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (!spanRef.current?.contains(event.target as Node)) {
-            setDisplay(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside);
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, []);
+ 
     return (
         <main>
             <main className='flex gap-7 justify-center items-center p-4 mb-[5rem] mediaFlexCol text-white'>

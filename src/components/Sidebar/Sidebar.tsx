@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
 import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
@@ -9,20 +9,29 @@ import { Link, useLocation } from 'react-router-dom';
 const Sidebar = ({ fixed }: { fixed?: boolean }) => {
   const [searchDisplay, setSearchDisplay] = useState(false)
   const [createPostDisplay, setCreatePostDisplay] = useState(false)
-  const SearchDisplayHandler = () => {
-    setSearchDisplay(prev => prev ? false : true)
+
+  const showSearch = () => {
+    setSearchDisplay(true)
   }
-  const createPostDisplayHandler = () => {
-    setCreatePostDisplay(prev => !prev)}
-      
-  useEffect(()=>{
-    if(createPostDisplay){
+  const hideSearch = () => {
+    setSearchDisplay(false)
+  }
+
+  const showCreatePost = () => {
+    setCreatePostDisplay(true)
+  }
+  const hideCreatePost = () => {
+    setCreatePostDisplay(false)
+  }
+
+  useEffect(() => {
+    if (createPostDisplay) {
       document.body.style.overflow = "hidden"
     }
-    else{
+    else {
       document.body.style.overflow = "auto"
     }
-  },[createPostDisplay])
+  }, [createPostDisplay])
   const { pathname } = useLocation()
   return (
     <>
@@ -32,15 +41,15 @@ const Sidebar = ({ fixed }: { fixed?: boolean }) => {
           <Link to={"/"}>
             <Navigator title='Home' icon={FiHome} active={pathname == "/" ? true : false} />
           </Link>
-          <Navigator title='Search' icon={BsSearch} clickHandler={SearchDisplayHandler} />
-          <Navigator title='Create' icon={BsPlusSquare} clickHandler={createPostDisplayHandler} />
+          <Navigator title='Search' icon={BsSearch} clickHandler={showSearch} />
+          <Navigator title='Create' icon={BsPlusSquare} clickHandler={showCreatePost} />
           <Link to={"/profile"}>
             <Navigator title='Profile' img={userImage} active={pathname == "/profile" ? true : false} />
           </Link>
         </section>
       </main>
-      <Search displayValue={searchDisplay} goBack={SearchDisplayHandler} />
-      <CreateNewPost createPostDisplay={createPostDisplay} handleCreatePostDisplay={createPostDisplayHandler} />
+      <Search displayValue={searchDisplay} hideSearch={hideSearch}/>
+      <CreateNewPost createPostDisplay={createPostDisplay} hideCreatePost={hideCreatePost} />
     </>
   )
 }

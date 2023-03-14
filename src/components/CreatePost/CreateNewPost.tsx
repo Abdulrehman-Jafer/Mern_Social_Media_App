@@ -6,7 +6,7 @@ import Warning from '../Warning/Warning'
 import { toast } from 'react-toastify'
 import { v4 } from 'uuid'
 
-const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: { createPostDisplay: boolean, handleCreatePostDisplay: () => void }) => {
+const CreateNewPost = ({ createPostDisplay = false, hideCreatePost }: { createPostDisplay: boolean, hideCreatePost: () => void }) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const [image, setImage] = useState("")
     const [imageFile, setImageFile] = useState<File>()
@@ -54,7 +54,7 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
         setFormDisplay(false)
         setImage("")
         setImageFile(undefined)
-        handleCreatePostDisplay()
+        hideCreatePost()
     }
     return (
         <>
@@ -70,7 +70,7 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
                             className="absolute top-0 right-0"
                         /> :
                             <RxCross2 onClick={() => {
-                                handleCreatePostDisplay()
+                                hideCreatePost()
                             }}
                                 className="absolute top-0 right-0"
                             />}

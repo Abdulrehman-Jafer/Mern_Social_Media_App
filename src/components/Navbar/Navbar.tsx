@@ -11,11 +11,17 @@ const TopNav = () => {
   const [searchDisplay, setSearchDisplay] = useState(false)
   const [createPostDisplay, setCreatePostDisplay] = useState(false)
 
-  const SearchDisplayHandler = () => {
-    setSearchDisplay(prev => prev ? false : true)
+  const showSearch = () => {
+    setSearchDisplay(true)
   }
-  const createPostDisplayHandler = () => {
-    setCreatePostDisplay(prev => !prev)
+  const hideSearch = () => {
+    setSearchDisplay(false)
+  }
+  const showCreatePost = () => {
+    setCreatePostDisplay(true)
+  }
+  const hideCreatePost = () => {
+    setCreatePostDisplay(false)
   }
   useEffect(()=>{
     if(createPostDisplay){
@@ -32,15 +38,15 @@ const TopNav = () => {
           <Link to={"/"}>
             <SideBarItems title='Home' icon={FiHome} />
           </Link>
-          <SideBarItems title='Search' icon={BsSearch} clickHandler={SearchDisplayHandler} />
-          <SideBarItems title='Create' icon={BsPlusSquare} clickHandler={createPostDisplayHandler} />
+          <SideBarItems title='Search' icon={BsSearch} clickHandler={showSearch} />
+          <SideBarItems title='Create' icon={BsPlusSquare} clickHandler={showCreatePost} />
           <Link to={"/profile"}>
             <SideBarItems title='Profile' img={userImage} />
           </Link>
         </section>
       </main>
-      <Search displayValue={searchDisplay} goBack={SearchDisplayHandler} />
-      <CreateNewPost createPostDisplay={createPostDisplay} handleCreatePostDisplay={createPostDisplayHandler} />
+      <Search displayValue={searchDisplay} hideSearch={hideSearch} />
+      <CreateNewPost createPostDisplay={createPostDisplay} hideCreatePost={hideCreatePost} />
     </>
   )
 }
