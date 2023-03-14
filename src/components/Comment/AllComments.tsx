@@ -5,7 +5,8 @@ import { GetAllCommenstUrl } from '../../constants/constants'
 import axios from 'axios'
 import { v4 } from "uuid";
 import Loader from '../loader/Loader'
-const CommentsSection = ({ postId, showComments, reload }: { postId: string, showComments: boolean, reload: number }) => {
+import "./comments.css"
+const AllComments = ({ postId, showComments, reload }: { postId: string, showComments: boolean, reload: number }) => {
   const [comments, setComments] = useState<ofComment[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -40,4 +41,4 @@ const CommentsSection = ({ postId, showComments, reload }: { postId: string, sho
   )
 }
 
-export default CommentsSection
+export default AllComments
