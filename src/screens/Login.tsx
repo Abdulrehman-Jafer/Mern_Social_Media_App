@@ -18,9 +18,9 @@ const LoginScrren = () => {
                     <InputFields label='Username' inputName='username' inputValue={logInInfo.username} setInputValue={setLogInnfo} icon={ImUser} />
                     <InputFields type='password' label='Password' inputName='password' inputValue={logInInfo.password} setInputValue={setLogInnfo} icon={BiLockAlt} />
                     <button
-                        disabled={processing}
+                        disabled={processing || !logInInfo.username || !logInInfo.password}
                         className={`bg-slate-300 text-black disabled:bg-slate-300 rounded-[2rem] p-3 font-semibold hover:bg-slate-200 disabled:hover:bg-slate-300 text-[1.2rem]`}>
-                        {processing ? <Loader/>  : <span>Log In</span>}
+                        {processing ? <Loader/>  : "Log In"}
                     </button>
                 </form>
                 <div className='flex flex-wrap justify-center'>
