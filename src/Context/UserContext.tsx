@@ -1,6 +1,6 @@
 import { createContext, Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
 import axios, { AxiosError } from "axios";
-import { SignUpUrl, LogInUrl } from "../constants/constants";
+import { SignUpUrl, LogInUrl,renewUserUrl } from "../constants/constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ofUserData, ofSignUp, ofLogIn } from "../types";
@@ -63,12 +63,14 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
             })
         }
         const renewUserData = async () => {
-            await axios.post(LogInUrl, { username: userData.username, password: userData.password }).then((res) => {
+            const Url = 
+            await axios.get(`${renewUserUrl}${userData._id}`).then((res) => {
                 if (res.status == 200) {
                     setUserData(res.data.existingUser)
                     setLocalStorage(res.data.existingUser)
                 }
             }).catch(err => {
+                toast.error("Something went wrong")
                 console.log(err)
             })
         }

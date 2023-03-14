@@ -55,6 +55,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                         setProcessing(false)
                         setWarningDisplay(false)
                         renewPosts()
+                        renewUserData()
                         return toast.success("Successfully Deleted")
                     }
                 },
