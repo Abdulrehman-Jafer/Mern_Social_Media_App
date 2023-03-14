@@ -1,4 +1,4 @@
-export const SignUpUrl = "http://localhost:8000/api/user/signUp";
+export const SignUpUrl = "http://spieser-api.onrender.com/api/user/signUp";
 export const LogInUrl = "https://spieser-api.onrender.com/api/user/login";
 export const createPostUrl = "https://spieser-api.onrender.com/api/post/create"
 export const getAllPostUrl = "https://spieser-api.onrender.com/api/post/"
