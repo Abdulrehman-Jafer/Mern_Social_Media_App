@@ -15,7 +15,7 @@ const NavigationRoutes = () => {
             return navigate("/login")
         }
         navigate("/")
-    }, [userData._id])
+    }, [])
 
     return (
         <Routes>
