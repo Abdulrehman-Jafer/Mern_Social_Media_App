@@ -8,7 +8,7 @@ const Index = ({id, postImage,likes,comments }: {id:string, postImage: string,li
     return (
         <main id={id} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)} className="relative">
             <section>
-                <img src={postImage} alt="postImage" className={`w-[300px] h-[320px] object-fill rounded-lg transition-all border border-pickedColor ${isHovering ? "myBlur" : ""}`} />
+                <img src={postImage} alt="postImage" className={`w-[300px] h-[320px] object-cover rounded-lg transition-all border border-pickedColor ${isHovering ? "myBlur" : ""}`} />
             </section>
             {isHovering &&
                 <section className='absoluteCenter text-second flex items-center gap-3 text-2xl bg-fourth p-2 rounded-md'>
