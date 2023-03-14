@@ -5,5 +5,7 @@ export type ofProvider = {
     SignUp: (event: React.FormEvent, signUpData: ofSignUp, setSignUpData: React.Dispatch<React.SetStateAction<ofSignUp>>,setProcessing:Dispatch<SetStateAction<boolean>>) => void
     LogIn: (event: FormEvent, LogInInfo: ofLogIn, setLogInnfo: Dispatch<SetStateAction<ofLogIn>>,setProcessing:Dispatch<SetStateAction<boolean>>) => void,
     LogOut: () => void,
-    renewUserData: () => void
+    renewUserData: () => void,
+    reloadPosts:number,
+    renewPosts:()=>void
 }

@@ -5,11 +5,13 @@ import { useEffect } from 'react'
 import Post from './Post'
 import { OfPost } from '../../types'
 import Loader from '../loader/Loader'
+import { toast } from 'react-toastify'
+import useContextData from '../../hooks/useContextData'
 
 const Index = () => {
     const [posts, setPosts] = useState<OfPost[]>([])
     const [processing, setProcessing] = useState(false)
-
+    const {reloadPosts} = useContextData()
     useEffect(() => {
         const getAllPosts = async () => {
             setProcessing(true)
@@ -19,10 +21,14 @@ const Index = () => {
                     setPosts(res.data.Posts)
                     console.log(res)
                 }
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                setProcessing(false)
+                toast.error("Sorry something went wrong")
+                console.log(err)
+            })
         }
-            getAllPosts()
-    }, [])
+        getAllPosts()
+    }, [reloadPosts])
     const AllPosts = posts.map(({ _id, caption, comments, createdBy, createdOn, image, likes }) => (
         <Post
             key={_id}
@@ -38,7 +44,7 @@ const Index = () => {
     ))
     return (
         <main className='flex flex-col-reverse items-center gap-3 mx-auto mt-[2rem]'>
-            {processing ? <Loader/> : AllPosts}
+            {processing ? <Loader /> : AllPosts}
         </main>
     )
 }

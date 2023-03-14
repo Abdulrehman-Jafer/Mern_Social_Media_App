@@ -5,8 +5,8 @@ import { createPostUrl } from '../../constants/constants'
 import { toast } from "react-toastify"
 import Loader from '../loader/Loader'
 import useContextData from '../../hooks/useContextData'
-const Form = ({ img, file, disable,setUploading }: { img: string, file: File, disable: boolean,setUploading:(boolean:boolean)=>void }) => {
-    const { userData: { username, userimage, _id }, renewUserData } = useContextData()
+const Form = ({ img, file, disable,setUploading,handleOnComplete }: { img: string, file: File, disable: boolean,setUploading:(boolean:boolean)=>void,handleOnComplete:()=>void }) => {
+    const { userData: { username, userimage, _id }, renewUserData,renewPosts } = useContextData()
     const [caption, setCaption] = useState("")
     const [processing, setProcessing] = useState(false)
 
@@ -24,10 +24,10 @@ const Form = ({ img, file, disable,setUploading }: { img: string, file: File, di
             console.log(res)
             if (res.status == 201) {
                 setProcessing(false)
-                renewUserData()
                 toast.success("Successful")
                 setUploading(false)
-                window.location.reload()
+                renewUserData()
+                renewPosts()
             }
         }).catch(err => {
             setProcessing(false)

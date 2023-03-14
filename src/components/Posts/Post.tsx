@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import PostButton from './PostButton';
 import Options from './Options';
 import Timeago from '../TimeAgo/TimeAgo';
@@ -24,7 +24,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
     const [focusCount, setFocusCount] = useState(0)
     const [warningDisplay, setWarningDisplay] = useState(false)
 
-    const { userData: { _id, userimage, username, saved }, renewUserData } = useContextData()
+    const { userData: { _id, userimage, username, saved }, renewUserData,renewPosts } = useContextData()
     const LikePost = async () => {
         return await axios.post(LikePostUrl, { userId: _id, postId }).then(res => {
             console.log(res)
@@ -34,8 +34,13 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 toast.success("Successful")
             }
         }).catch(err => {
-            console.log(err)
-            toast.error("Something went wrong")
+            if (err instanceof AxiosError) {
+                toast.error(err.response?.data.message)
+            }
+            else {
+                console.log(err)
+                toast.error("Something went wrong")
+            }
         })
     }
     const deletePost = async () => {
@@ -44,24 +49,26 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
         toast.promise(
             axios.delete(Url),
             {
-                pending:"Deleting the Post",
-                success:{
-                    render:()=>{
-                        window.location.reload()
+                pending: "Deleting the Post",
+                success: {
+                    render: () => {
+                        setProcessing(false)
+                        setWarningDisplay(false)
+                        renewPosts()
                         return toast.success("Successfully Deleted")
                     }
                 },
-                error:{
-                    render:(err)=>{
-                        console.error(err)
+                error: {
+                    render: (err) => {
                         setProcessing(false)
+                        console.error(err)
                         return toast.error("Something went wrong")
                     }
                 }
             }
         )
-      }
-      
+    }
+
     const saveThePost = async () => {
         setProcessing(true)
         await axios.post(savePostUrl, { userId: _id, postId: postId }).then(res => {
@@ -73,8 +80,13 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
             }
         }).catch(err => {
             setProcessing(false)
-            toast.error("Something went wrong")
-            console.error(err)
+            if (err instanceof AxiosError) {
+                toast.error(err.response?.data.message)
+            }
+            else{
+                toast.error("Something went wrong")
+                console.error(err)
+            }
         })
     }
     const handleCancel = () => {
@@ -137,7 +149,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                 </section>
                 <PostComments _id={_id} postId={postId} userimage={userimage} username={username} focusCount={focusCount} />
             </main>
-            <Warning message="Are you sure you want to delete this post?" onCancel={() => setWarningDisplay(false)} display={warningDisplay} onConfirm={deletePost} processing={processing}/>
+            <Warning message="Are you sure you want to delete this post?" onCancel={() => setWarningDisplay(false)} display={warningDisplay} onConfirm={deletePost} processing={processing} />
         </>
     )
 }

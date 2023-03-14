@@ -46,6 +46,12 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
         console.log("called")
         setIsUploading(boolean)
     }
+    const handleOnComplete  = () => {
+        setFormDisplay(false)
+        setImage("")
+        setImageFile(undefined)
+        setWarningDisplay(false)
+    }
     return (
         <>
             <main className={`fixed w-screen h-screen text-white z-30 flex justify-center items-center ${createPostDisplay ? "" : "hidden"}`}>
@@ -73,7 +79,7 @@ const CreateNewPost = ({ createPostDisplay = false, handleCreatePostDisplay }: {
                                 Add an Image
                             </button>
                             :
-                            <Form img={image} file={imageFile!} disable={warningDisplay} setUploading={setUploading}/>
+                            <Form img={image} file={imageFile!} disable={warningDisplay} setUploading = {setUploading} handleOnComplete = {handleOnComplete}/>
                         }
                         <input ref={inputRef} accept="image/*" type="file" className='hidden' onChange={(event) => onChangeHandler(event)} />
                     </div>

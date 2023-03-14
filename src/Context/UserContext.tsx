@@ -13,6 +13,7 @@ import LocalStorageHandler from "../utils/localsotrage/localsorage handler";
 export const UserContext = createContext({} as ofProvider)
 const UserContextProvider = ({ children }: { children: ReactNode }) => {
     const { setLocalStorage, localUser } = LocalStorageHandler()
+    const [reloadPosts,setReloadPosts] = useState(0)
     const [userData, setUserData] = useState<ofUserData>(localUser)
     const navigate = useNavigate()
 
@@ -77,6 +78,9 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
             toast.success("Successful")
             navigate("/login")
         }
+        const renewPosts = () => {
+            setReloadPosts(prev => prev + 1)
+        }
         return (
             <UserContext.Provider value={
                 {
@@ -84,7 +88,9 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
                     SignUp,
                     LogIn,
                     LogOut,
-                    renewUserData
+                    renewUserData,
+                    reloadPosts,
+                    renewPosts
                 }}>
                 {children}
             </UserContext.Provider>
