@@ -7,7 +7,6 @@ import { ofUserData } from "../../types"
 import FoundedUser from "./FoundedUser"
 import { toast } from 'react-toastify';
 import Loader from "../loader/Loader"
-import useClickOutside from "../../hooks/useClickOutside"
 
 const Search = ({ displayValue = false, hideSearch }: { displayValue: boolean, hideSearch: () => void }) => {
     const [searchText, setSearchText] = useState("")
@@ -40,7 +39,6 @@ const Search = ({ displayValue = false, hideSearch }: { displayValue: boolean, h
         })
     }
 
-    // useClickOutside(searchRef,hideSearch)
     const ResultMap = searchResult.map(({ username, userimage, _id }) => <FoundedUser key={_id} username={username} userimage={userimage} />)
     const searchData = !searchResult.length ?
         isSearched && <div className="flex justify-center flex-col items-center mt-10">

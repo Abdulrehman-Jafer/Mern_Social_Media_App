@@ -5,16 +5,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ofUserData, ofSignUp, ofLogIn } from "../types";
 import { toast } from 'react-toastify';
-import { UndefinedUser } from "../utils/localsotrage/undefinedUser";
+import { UndefinedUser } from "../utils/sessionStorage/undefinedUser";
 import { ofProvider } from "./file.types";
-import LocalStorageHandler from "../utils/localsotrage/localsorage handler";
+import sessionStorageHandler from "../utils/sessionStorage/sessionStorage handler";
 
 
 export const UserContext = createContext({} as ofProvider)
 const UserContextProvider = ({ children }: { children: ReactNode }) => {
-    const { setLocalStorage, localUser } = LocalStorageHandler()
+    const { setsessionStorage, sessionUser } = sessionStorageHandler()
     const [reloadPosts,setReloadPosts] = useState(0)
-    const [userData, setUserData] = useState<ofUserData>(localUser)
+    const [userData, setUserData] = useState<ofUserData>(sessionUser)
     const navigate = useNavigate()
 
     const SignUp = async (event: FormEvent, signUpData: ofSignUp, setSignUpData: Dispatch<SetStateAction<ofSignUp>>, setProcessing: Dispatch<SetStateAction<boolean>>) => {
@@ -46,7 +46,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
                 if (res.status == 200) {
                     setProcessing(false)
                     setUserData(res.data.existingUser)
-                    setLocalStorage(res.data.existingUser)
+                    setsessionStorage(res.data.existingUser)
                     setLogInnfo({ username: "", password: "" })
                     toast.success("Successful")
                     navigate("/")
@@ -67,7 +67,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
             await axios.get(`${renewUserUrl}${userData._id}`).then((res) => {
                 if (res.status == 200) {
                     setUserData(res.data.existingUser)
-                    setLocalStorage(res.data.existingUser)
+                    setsessionStorage(res.data.existingUser)
                 }
             }).catch(err => {
                 toast.error("Something went wrong")
@@ -76,7 +76,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
         }
         const LogOut = () => {
             setUserData(UndefinedUser)
-            setLocalStorage(UndefinedUser)
+            setsessionStorage(UndefinedUser)
             toast.success("Successful")
             navigate("/login")
         }
