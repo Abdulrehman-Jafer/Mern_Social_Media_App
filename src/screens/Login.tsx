@@ -18,7 +18,7 @@ const LoginScrren = () => {
         return
     }, [])
     return (
-        <main className='w-[100%] h-[100vh] backgroundImage flex justify-center items-center'>
+        <main className='w-[100%] h-[100vh] bg-black flex justify-center items-center'>
             <section className='border rounded-md p-2 min-h-[20rem] w-[20rem] sm:w-[30rem] sm:h-[30rem] flex flex-col backdrop-blur-lg'>
                 <h1 className='text-white text-4xl font-semibold text-center mb-[3rem] mt-2'>Log in</h1>
                 <form className='flex flex-col gap-3 my-[1rem]' onSubmit={(event) => LogIn(event, logInInfo, setLogInnfo, setProcessing)}>
@@ -31,7 +31,12 @@ const LoginScrren = () => {
                     </button>
                 </form>
                 <div className='flex flex-wrap justify-center'>
-                    <span className='text-white'>Don't have an account?</span><Link to={"/signup"} className='text-white font-semibold underline'>Create an account</Link>
+                    {!processing &&
+                        <>
+                            <span className='text-white'>Don't have an account?</span>
+                            <Link to={"/signup"} className='text-white font-semibold underline'>Create an account</Link>
+                        </>
+                    }
                 </div>
             </section>
         </main>

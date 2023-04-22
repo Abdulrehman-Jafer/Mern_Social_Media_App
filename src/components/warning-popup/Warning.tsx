@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { CiWarning } from "react-icons/ci"
 
 const Warning = ({
@@ -12,7 +12,7 @@ const Warning = ({
     message: string;
     onConfirm: () => void;
     onCancel: () => void;
-    processing?:boolean
+    processing?: boolean
 }) => {
     useEffect(() => {
         if (display) {
@@ -30,7 +30,7 @@ const Warning = ({
                 style={{ width: '400px', height: '200px' }}
             >
                 <div className="text-2xl border-b-2 mb-[1rem] pb-1 flex items-center justify-center gap-2">
-                    <CiWarning className='text-red-500 text-[2rem]'/>
+                    <CiWarning className='text-red-500 text-[2rem]' />
                     <span>Warning</span>
                 </div>
                 <h1>{message}</h1>

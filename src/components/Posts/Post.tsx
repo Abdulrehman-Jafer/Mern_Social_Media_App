@@ -2,8 +2,8 @@ import { useState, useRef } from 'react'
 import axios, { AxiosError } from 'axios';
 import PostButton from './PostButton';
 import Options from './Options';
-import Timeago from '../TimeAgo/TimeAgo';
-import PostComments from "../Comment/Index"
+import Timeago from '../time-ago/TimeAgo';
+import PostComments from "../comments/Index"
 import { ofPostProps } from './file.type';
 import { deletePostUrl, savePostUrl, LikePostUrl } from '../../constants/constants';
 import { TiTick } from "react-icons/ti"
@@ -12,7 +12,7 @@ import { BsThreeDots } from "react-icons/bs"
 import { FaHeart, FaComment, } from 'react-icons/fa';
 import { BsDot } from "react-icons/bs"
 import { toast } from 'react-toastify';
-import Warning from '../Warning/Warning';
+import Warning from '../warning-popup/Warning';
 import useContextData from '../../hooks/useContextData';
 import useClickOutside from '../../hooks/useClickOutside';
 
@@ -25,25 +25,26 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
     const [focusCount, setFocusCount] = useState(0)
     const [warningDisplay, setWarningDisplay] = useState(false)
 
-    const { userData: { _id, userimage, username, saved }, renewUserData,renewPosts } = useContextData()
+    const { userData: { _id, userimage, username, saved }, renewUserData, renewPosts } = useContextData()
+
     const LikePost = async () => {
         return await axios.post(LikePostUrl, { userId: _id, postId }).then(res => {
-            console.log(res)
+            setLike(prev => prev + 1)
+            setDisable(true)
             if (res.status == 200) {
-                setLike(prev => prev + 1)
-                setDisable(true)
-                toast.success("Successful")
+                toast.success("Posts like are synced!")
             }
         }).catch(err => {
             if (err instanceof AxiosError) {
                 toast.error(err.response?.data.message)
             }
             else {
-                console.log(err)
-                toast.error("Something went wrong")
+                setDisable(false)
+                toast.error("Could not complete your Like request!")
             }
         })
     }
+
     const deletePost = async () => {
         setProcessing(true)
         const Url = deletePostUrl + "/" + _id + "/" + postId;
@@ -85,7 +86,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
             if (err instanceof AxiosError) {
                 toast.error(err.response?.data.message)
             }
-            else{
+            else {
                 toast.error("Something went wrong")
                 console.error(err)
             }
@@ -96,7 +97,7 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
     }
 
     const ref = useRef<HTMLElement>(null)
-    useClickOutside(ref,handleCancel)
+    useClickOutside(ref, handleCancel)
     return (
         <>
             <main className='p-2 max-w-[600px] w-full flex flex-col gap-[1rem] bg-transparent backdrop-blur-[1px] rounded-lg border border-pickedColor'>
@@ -118,8 +119,8 @@ const Post = ({ creatorname, creatorimage, likes, createdOn, caption, postImage,
                     </div>
                 </section>
                 <section>
-                    <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] sm:w-[580px] min-h-[320px] max-h-[600px]' />
-                    <span className='text-white'>{likes.length + like} likes</span>
+                    <img src={postImage} alt="postImage" className='rounded-lg mb-2 w-[100%] object-cover sm:w-[580px] min-h-[320px] max-h-[600px]' />
+                    <span className='text-white'>{likes.length + like} {(likes.length + like) > 1 ? "people" : "person"} liked</span>
                     <p className='text-white font-mono'>{caption}
                     </p>
                 </section>

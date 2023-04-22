@@ -1,10 +1,10 @@
 import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
-import SideBarItems from '../Navigator/Navigator';
-import Search from '../Search/Search';
+import SideBarItems from '../navigator/Navigator';
+import Search from '../search/Search';
 import { useState } from "react"
-import CreateNewPost from '../CreatePost/CreateNewPost';
+import CreateNewPost from '../create-a-post/CreateNewPost';
 import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 const TopNav = () => {
@@ -23,14 +23,14 @@ const TopNav = () => {
   const hideCreatePost = () => {
     setCreatePostDisplay(false)
   }
-  useEffect(()=>{
-    if(createPostDisplay){
+  useEffect(() => {
+    if (createPostDisplay) {
       document.body.style.overflow = "hidden"
     }
-    else{
+    else {
       document.body.style.overflow = "auto"
     }
-  },[createPostDisplay])
+  }, [createPostDisplay])
   return (
     <>
       <main className='mediaBlock justify-between p-2 items-center bg-black text-white w-[100%] hidden border-b fixed z-[20]'>

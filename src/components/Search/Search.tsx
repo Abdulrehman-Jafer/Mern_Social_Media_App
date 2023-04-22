@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Loader from "../loader/Loader"
 
 const Search = ({ displayValue = false, hideSearch }: { displayValue: boolean, hideSearch: () => void }) => {
-    const [searchText, setSearchText] = useState("")
+    const [searchQuerry, setQuerryText] = useState("")
     const [searchResult, setSearchResult] = useState<ofUserData[]>([])
     const [isSearched, setIsSearched] = useState(false)
     const [isSearching, setIsSearching] = useState(false)
@@ -27,8 +27,8 @@ const Search = ({ displayValue = false, hideSearch }: { displayValue: boolean, h
     const searchHandler = async (event: FormEvent) => {
         event.preventDefault()
         setIsSearching(true)
-        await axios.post(searchURl, { searchText }).then(res => {
-            toast.success(`Searched for ${searchText}`)
+        await axios.post(searchURl, { searchText: searchQuerry }).then(res => {
+            toast.success(`Searched for ${searchQuerry}`)
             setIsSearched(true)
             setIsSearching(false)
             setSearchResult(res.data.result)
@@ -42,8 +42,8 @@ const Search = ({ displayValue = false, hideSearch }: { displayValue: boolean, h
     const ResultMap = searchResult.map(({ username, userimage, _id }) => <FoundedUser key={_id} username={username} userimage={userimage} />)
     const searchData = !searchResult.length ?
         isSearched && <div className="flex justify-center flex-col items-center mt-10">
-            <p>Not Found</p>
-            <p>"{searchText}"</p>
+            <p>User does not exist!</p>
+            <p>"{searchQuerry}"</p>
         </div>
         :
         isSearched &&
@@ -64,23 +64,24 @@ const Search = ({ displayValue = false, hideSearch }: { displayValue: boolean, h
                         type="text"
                         className='w-[100%] p-2 bg-gray-500 text-white rounded-md'
                         placeholder='Search'
-                        value={searchText}
+                        value={searchQuerry}
                         onChange={(event) => {
                             setIsSearched(false)
-                            setSearchText(event.target.value)
+                            setQuerryText(event.target.value)
                         }}
                     />
                     <RxCrossCircled
                         className='absolute top-3 right-2 text-black font-bold cursor-pointer'
                         onClick={() => {
-                            setSearchText("")
+                            setQuerryText("")
+                            setSearchResult([])
                             inputRef.current?.focus()
                         }}
                     />
                 </div>
             </form>
-            {!isSearched && <div className="text-center">Search result will appear here</div>}
-            {isSearching ? <Loader /> : searchData}
+            {!isSearched && !searchData ? <div className="text-center">Search result will appear here</div> : ""}
+            {isSearching ? <Loader /> : searchData && <section className="text-center mt-8"><span className="font-semibold">Search results for {searchQuerry}</span><span>{searchData}</span></section>}
         </main>
     )
 }

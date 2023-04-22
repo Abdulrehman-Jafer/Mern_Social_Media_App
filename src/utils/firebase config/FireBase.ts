@@ -21,21 +21,11 @@ export const storage = getStorage(app);
 
 export const uploadImage = async (file: File) => {
   const imageRef = ref(storage, `postImages/${file.name + v4()}`);
-  let imageUrl = "";
-  await uploadBytes(imageRef, file)
+  return await uploadBytes(imageRef, file)
     .then(() =>
       getDownloadURL(imageRef)
-        .then((res) => {
-          imageUrl = res;
-        })
+        .then((res) => res)
         .catch((err) => console.log(err))
     )
     .catch((err) => console.log(err));
-    return imageUrl
 };
-
-// export const deleteImage = async (imageUrl: string) => {
-//   // Parse the URL to get the image path
-//  const imageRef = ref (storage,imageUrl)
-//  imageRef.delete()
-// };

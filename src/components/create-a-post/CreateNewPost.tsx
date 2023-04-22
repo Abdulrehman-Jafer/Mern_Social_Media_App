@@ -2,7 +2,7 @@ import { useRef, useState, ChangeEvent } from 'react'
 import Form from './Form'
 import { FiArrowLeft } from "react-icons/fi"
 import { RxCross2 } from "react-icons/rx"
-import Warning from '../Warning/Warning'
+import Warning from '../warning-popup/Warning'
 import { toast } from 'react-toastify'
 import { v4 } from 'uuid'
 
@@ -39,17 +39,17 @@ const CreateNewPost = ({ createPostDisplay = false, hideCreatePost }: { createPo
 
     const goBack = () => {
         if (isUploading) {
-          return  toast.warning("Upload is in progress")
+            return toast.warning("Upload is in progress")
         }
-            setImage("")
-            setFormDisplay(false)
-            setImageFile(undefined)
+        setImage("")
+        setFormDisplay(false)
+        setImageFile(undefined)
     }
-    const setUploading = (boolean:boolean) => {
+    const setUploading = (boolean: boolean) => {
         console.log("called")
         setIsUploading(boolean)
     }
-    const handleOnComplete  = () => {
+    const handleOnComplete = () => {
         setWarningDisplay(false)
         setFormDisplay(false)
         setImage("")
@@ -83,7 +83,7 @@ const CreateNewPost = ({ createPostDisplay = false, hideCreatePost }: { createPo
                                 Add an Image
                             </button>
                             :
-                            <Form img={image} file={imageFile!} disable={warningDisplay} setUploading = {setUploading} handleOnComplete = {handleOnComplete}/>
+                            <Form img={image} file={imageFile!} disable={warningDisplay} setUploading={setUploading} handleOnComplete={handleOnComplete} />
                         }
                         <input ref={inputRef} accept="image/*" type="file" key={key} className='hidden' onChange={(event) => imageOnChangeHandler(event)} />
                     </div>

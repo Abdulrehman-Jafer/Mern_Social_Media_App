@@ -1,14 +1,14 @@
 import React from 'react'
-import Sidebar from '../components/Sidebar/Sidebar'
-import TopNav from '../components/Navbar/Navbar'
-import Posts from '../components/Posts/Index'
+import Sidebar from '../components/side-nav/SideNav'
+import TopNav from '../components/topNav/TopNav'
+import Posts from '../components/posts/Index'
 const HomeScreen = () => {
     return (
         <main className='flex h-[100%] w-[100%] mediaFlexCol'>
-            <Sidebar fixed={true}/>
+            <Sidebar fixed={true} />
             <TopNav />
             <section className='flex flex-col w-[100%] ml-[10rem] mediaMargin justify-center items-center gap-3 mx-auto'>
-                <Posts/>
+                <Posts />
             </section>
         </main>
     )

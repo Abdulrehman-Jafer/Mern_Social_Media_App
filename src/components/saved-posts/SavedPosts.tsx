@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { getSavedPostUrl } from '../../constants/constants'
 import { OfPost } from '../../types'
-import Post from '../UserPost/Post'
+import Post from '../user-post/Post'
 import Loader from '../loader/Loader'
 import { toast } from "react-toastify"
 import useContextData from '../../hooks/useContextData'

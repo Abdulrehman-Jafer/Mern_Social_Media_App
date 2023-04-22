@@ -13,30 +13,30 @@ const SignUpScreen = () => {
     const [signUpData, setSignUpData] = useState({ username: "", password: "", confirm: "", userimage: "" })
     const imageRef = useRef<HTMLInputElement>(null)
     const [imageProcessing, setImageProcessing] = useState(false)
-    const { SignUp} = useContextData()
-    const [processing,setProcessing] = useState(false)
+    const { SignUp } = useContextData()
+    const [processing, setProcessing] = useState(false)
     const imageInput = signUpData.userimage == "" ?
         <div className='relative mx-auto mb-[1rem]'>
             <span className='border text-white p-2 rounded-[0.3rem] cursor-pointer hover:border-2 transition-all' onClick={() => imageRef.current?.click()}>Choose a profile pic</span>
-            <input 
-            ref={imageRef} 
-            type="file" 
-            className='hidden' 
-            accept='image/*' 
-            value={signUpData.userimage} 
-            onChange={(event) => ImageUploader(event, setSignUpData, setImageProcessing)} 
-            required 
+            <input
+                ref={imageRef}
+                type="file"
+                className='hidden'
+                accept='image/*'
+                value={signUpData.userimage}
+                onChange={(event) => ImageUploader(event, setSignUpData, setImageProcessing)}
+                required
             />
         </div>
         :
         <img src={signUpData.userimage} alt={signUpData.userimage} className="w-[100%] object-contain max-h-[10rem]" />
     return (
 
-        <main className='w-[100%] h-[100vh] backgroundImage flex justify-center items-center'>
+        <main className='w-[100%] h-[100vh] bg-black flex justify-center items-center'>
             <section className='border rounded-md p-2 min-h-[20rem] w-[20rem] sm:w-[30rem] sm:min-h-[30rem] flex flex-col backdrop-blur-lg'>
                 <h1 className='text-white text-4xl font-semibold text-center mb-[3rem] mt-2'>Sign up</h1>
                 {signUpData.password !== signUpData.confirm && <p className='text-center text-red-500'>Password does not match</p>}
-                <form className='flex flex-col gap-3 my-[1rem]' onSubmit={(event) => SignUp(event, signUpData, setSignUpData,setProcessing)} >
+                <form className='flex flex-col gap-3 my-[1rem]' onSubmit={(event) => SignUp(event, signUpData, setSignUpData, setProcessing)} >
                     <InputFields
                         label='Username'
                         inputName='username'
@@ -69,7 +69,10 @@ const SignUpScreen = () => {
                     </button>
                 </form>
                 <div className='flex flex-wrap justify-center'>
-                    <span className='text-white'>Already have an account?</span><Link to={"/login"} className='text-white font-semibold underline'>Log in</Link>
+                    {!processing && <>
+                        <span className='text-white'>Already have an account?</span>
+                        <Link to={"/login"} className='text-white font-semibold underline'>Log in</Link>
+                    </>}
                 </div>
             </section>
         </main>
