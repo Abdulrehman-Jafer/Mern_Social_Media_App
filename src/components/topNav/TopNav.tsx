@@ -1,8 +1,8 @@
 import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
-import SideBarItems from '../navigator/Navigator';
-import Search from '../search/Search';
+import Navigator from "../navigator/Navigator";
+import Search from "../search/Search";
 import { useState } from "react"
 import CreateNewPost from '../create-a-post/CreateNewPost';
 import { Link } from 'react-router-dom';
@@ -36,12 +36,12 @@ const TopNav = () => {
       <main className='mediaBlock justify-between p-2 items-center bg-black text-white w-[100%] hidden border-b fixed z-[20]'>
         <section className='flex justify-between gap-2'>
           <Link to={"/"}>
-            <SideBarItems title='Home' icon={FiHome} />
+            <Navigator title='Home' icon={FiHome} />
           </Link>
-          <SideBarItems title='Search' icon={BsSearch} clickHandler={showSearch} />
-          <SideBarItems title='Create' icon={BsPlusSquare} clickHandler={showCreatePost} />
+          <Navigator title='Search' icon={BsSearch} clickHandler={showSearch} />
+          <Navigator title='Create' icon={BsPlusSquare} clickHandler={showCreatePost} />
           <Link to={"/profile"}>
-            <SideBarItems title='Profile' img={userImage} />
+            <Navigator title='Profile' img={userImage} />
           </Link>
         </section>
       </main>
