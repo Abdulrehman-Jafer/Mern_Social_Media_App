@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Navigator from '../navigator/Navigator'
+import Navigator from '../Navigator/Navigator'
 import { BsGrid3X3Gap } from "react-icons/bs"
 import { MdReceipt } from "react-icons/md"
 import AllPosts from './AllPosts'

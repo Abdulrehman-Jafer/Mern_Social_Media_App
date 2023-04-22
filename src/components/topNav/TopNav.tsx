@@ -1,8 +1,8 @@
 import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
-import Search from "../search/Search";
-import Navigator from "../navigator/Navigator";
+import Search from "../Search/Search";
+import Navigator from "../Navigator/Navigator";
 import { useState } from "react"
 import CreateNewPost from '../create-a-post/CreateNewPost';
 import { Link } from 'react-router-dom';
