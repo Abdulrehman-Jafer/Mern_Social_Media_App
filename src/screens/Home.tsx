@@ -1,6 +1,6 @@
 import Sidebar from '../components/side-nav/SideNav'
 import TopNav from '../components/topNav/TopNav'
-import Posts from '../components/posts/Index'
+import Posts from '../components/Posts/Posts'
 const HomeScreen = () => {
     return (
         <main className='flex h-[100%] w-[100%] mediaFlexCol'>
