@@ -8,10 +8,10 @@ import Loader from '../loader/Loader'
 import { toast } from 'react-toastify'
 import useContextData from '../../hooks/useContextData'
 
-const Index = () => {
+const Posts = () => {
     const [posts, setPosts] = useState<OfPost[]>([])
     const [processing, setProcessing] = useState(false)
-    const {reloadPosts} = useContextData()
+    const { reloadPosts } = useContextData()
     useEffect(() => {
         const getAllPosts = async () => {
             setProcessing(true)
@@ -49,4 +49,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default Posts

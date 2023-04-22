@@ -3,7 +3,7 @@ import { FiHome } from "react-icons/fi"
 import { BsSearch, BsPlusSquare } from 'react-icons/bs'
 import userImage from "../../assets/userImage.jpg"
 import Navigator from "../navigator/Navigator"
-import Search from '../search/Search';
+import Search from "../search/Search"
 import CreateNewPost from '../create-a-post/CreateNewPost';
 import { Link, useLocation } from 'react-router-dom';
 
